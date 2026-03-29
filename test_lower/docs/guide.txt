@@ -1,0 +1,2 @@
+Whiteout guide:
+rm file -> creates .wh.file

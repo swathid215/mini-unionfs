@@ -1,0 +1,5 @@
+{
+  "name": "MiniUnionFS",
+  "version": "1.0",
+  "feature": "whiteout"
+}
