@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include "cow.h"
 
 struct mini_unionfs_state {
     char *lower_dir;
@@ -43,10 +44,16 @@ static int unionfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     return 0;
 }
 
+// open (CoW integration)  
+static int unionfs_open(const char *path, struct fuse_file_info *fi) {
+    handle_cow_open(path, fi->flags);
+    return 0;
+
 // operations
 static struct fuse_operations unionfs_oper = {
     .getattr = unionfs_getattr,
     .readdir = unionfs_readdir,
+    .open = unionfs_open,
 };
 
 // main
