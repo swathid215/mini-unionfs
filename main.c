@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <limits.h>
+#include "cow.h"
 
 struct mini_unionfs_state {
     char *lower_dir;
@@ -202,6 +203,8 @@ static int unionfs_unlink(const char *path) {
 static struct fuse_operations unionfs_oper = {
     .getattr = unionfs_getattr,
     .readdir = unionfs_readdir,
+    .open    = cow_open,     
+    .write   = cow_write,    
     .unlink  = unionfs_unlink,
 };
 
